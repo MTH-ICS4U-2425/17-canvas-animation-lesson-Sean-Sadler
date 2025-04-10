@@ -37,16 +37,22 @@ export default class Player {
   get left() {
     return this.position.x;
   }
+  set bottom(location) { this.position.y = location - this.height; }
+  set right(location) { this.position.x = location - this.width; }
+  set top(location) { this.position.y = location; }
+  set left(location) { this.position.x = location; }
 
   /**
    * Main function to update location, velocity, and image
    */
   update() {
-    this.velocity.y += GRAVITY;
+    if (this.bottom < FLOOR) {
+      this.velocity.y += GRAVITY;
+    }
 
     if (this.bottom > FLOOR) {
       this.velocity.y = 0;
-      this.position.y = FLOOR - this.height;
+      this.bottom = FLOOR;
     }
 
     this.position.x += this.velocity.x;
@@ -63,7 +69,9 @@ export default class Player {
   }
 
   jump() {
-    this.position.y -= 3;
-    this.velocity.y = -20;
+    if (this.bottom >= FLOOR) {
+      this.bottom = FLOOR;
+      this.velocity.y = -20;
+    }
   }
 }
