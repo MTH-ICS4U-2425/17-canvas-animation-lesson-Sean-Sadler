@@ -35,6 +35,9 @@ export const KEYS = {
   D:68
 };
 
+//Enemies array:
+export let enemy_arr = [];
+
 /**
  * Shortcut for the document.getElementById() function
  * @param {String} id The unique identifier of the element being requested.
