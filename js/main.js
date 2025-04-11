@@ -13,14 +13,11 @@ import Player from "./player.js";
 import { CANVAS, CTX, MS_PER_FRAME, KEYS } from "./globals.js";
 
 // Globals
-const HERO = new Player(120, 150, 48, 48);
-let ground_length = 1150;
+const HERO = new Player(120, 150, 89, 97);
 let ground = new Image();
 ground.src = "../images/dino_large.png";
 ground.x_pos1 = 0;
 ground.x_pos2 = 1150;
-let ground1_can_move = false;
-let ground2_can_move = true;
 
 let frame_time = performance.now();
 
@@ -37,7 +34,7 @@ document.addEventListener("contextmenu", (event) => {
  * The user pressed a key on the keyboard 
  */
 function keypress(event) {
-  if (event.keyCode == KEYS.SPACE) {
+  if ([KEYS.W, KEYS.UP_ARROW, KEYS.SPACE].includes(event.keyCode)) {
     HERO.jump();
   }
 }
@@ -64,23 +61,20 @@ function update() {
   CTX.clearRect(0, 0, CANVAS.width, CANVAS.height);
 
 
-  if (ground.x_pos1 <= 0 && ground2_can_move) {
-    ground.x_pos2 = ground.x_pos1 + 600;
-    ground1_can_move = true;
-    ground2_can_move = false;
-  } else if (ground.x_pos2 <= 0 && ground1_can_move) {
-    ground.x_pos1 = ground.x_pos2 + 600;
-    ground1_can_move = false;
-    ground2_can_move = true;
-  }
-
-
-  // Draw ground
-  CTX.drawImage(ground, 0, 102, 1150, 28, ground.x_pos1, 300, 1150, 26);
-  CTX.drawImage(ground, 1151, 102, 2300, 28, ground.x_pos2, 300, 1150, 26);
 
   ground.x_pos1 -= 5;
   ground.x_pos2 -= 5;
+
+  // Draw ground
+  CTX.drawImage(ground, 0, 102, 1150, 28, ground.x_pos1, 300, 1150, 26);
+  CTX.drawImage(ground, 1151, 102, 1150, 28, ground.x_pos2, 300, 1150, 26);
+
+  if (ground.x_pos1 <= -1150) {
+    ground.x_pos1 = 1150;
+  } 
+  if (ground.x_pos2 <= -1150) {
+    ground.x_pos2 = 1150;
+  }
   
   // Draw our hero
   HERO.update();

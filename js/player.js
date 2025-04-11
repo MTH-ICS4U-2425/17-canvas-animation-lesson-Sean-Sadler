@@ -9,6 +9,9 @@
  */
 
 import { CTX, CANVAS, GRAVITY, FLOOR } from "./globals.js"
+let frame_count = 0;
+const dino = new Image();
+dino.src = "../images/dino_large.png";
 
 export default class Player {
   constructor(x, y, width, height) {
@@ -46,13 +49,17 @@ export default class Player {
    * Main function to update location, velocity, and image
    */
   update() {
-    if (this.bottom < FLOOR) {
+    if (this.bottom + this.velocity.y >= FLOOR) {
+      this.velocity.y = 0;
+      this.bottom = FLOOR;
+    } else {
       this.velocity.y += GRAVITY;
     }
 
-    if (this.bottom > FLOOR) {
-      this.velocity.y = 0;
-      this.bottom = FLOOR;
+    if (frame_count == 16) {
+      frame_count = 0;
+    } else {
+      frame_count++;
     }
 
     this.position.x += this.velocity.x;
@@ -64,8 +71,13 @@ export default class Player {
    * Draw the player on the canvas
    */
   draw() {
-    CTX.fillStyle = "yellow";
-    CTX.fillRect(this.position.x, this.position.y, this.width, this.height);
+    if (this.bottom >= FLOOR && frame_count > 8) {
+      CTX.drawImage(dino, 1854, 0, 88, 97, this.position.x, this.position.y, 88, 97)
+    } else if (this.bottom >= FLOOR && frame_count <= 8) {
+      CTX.drawImage(dino, 1942, 0, 88, 97, this.position.x, this.position.y, 88, 97)
+    } else {
+      CTX.drawImage(dino, 1677, 0, 88, 97, this.position.x, this.position.y, 88, 97)
+    }
   }
 
   jump() {
