@@ -9,6 +9,7 @@
  */
 
 // Drawing / updating
+
 export const CANVAS = document.getElementById('game_canvas');
 export const CTX = CANVAS.getContext('2d', {
       powerPreference: "high-performance"
@@ -36,7 +37,8 @@ export const KEYS = {
 };
 
 //Enemies array:
-export let enemy_arr = [];
+export let enemy_arr = new Array();
+
 
 /**
  * Shortcut for the document.getElementById() function

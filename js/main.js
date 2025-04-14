@@ -9,17 +9,27 @@
 
 'use strict';
 
+import Cactus from "./enemies.js";
 import Player from "./player.js";
-import { CANVAS, CTX, MS_PER_FRAME, KEYS } from "./globals.js";
+import { CANVAS, CTX, MS_PER_FRAME, KEYS, enemy_arr } from "./globals.js";
 
-// Globals
+// Global
 const HERO = new Player(120, 150, 89, 97);
+
 let ground = new Image();
 ground.src = "../images/dino_large.png";
 ground.x_pos1 = 0;
 ground.x_pos2 = 1150;
 
+
 let frame_time = performance.now();
+
+//Helper Functions
+export function randInt(min, max) {
+  const minCeiled = Math.ceil(min);
+  const maxFloored = Math.floor(max);
+  return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled); // The maximum is inclusive and the minimum is inclusive
+}
 
 // Event Listeners
 document.addEventListener("keydown", keypress);
@@ -62,8 +72,8 @@ function update() {
 
 
 
-  ground.x_pos1 -= 5;
-  ground.x_pos2 -= 5;
+  ground.x_pos1 -= 10;
+  ground.x_pos2 -= 10;
 
   // Draw ground
   CTX.drawImage(ground, 0, 102, 1150, 28, ground.x_pos1, 300, 1150, 26);
@@ -75,11 +85,18 @@ function update() {
   if (ground.x_pos2 <= -1150) {
     ground.x_pos2 = 1150;
   }
+
+
   
   // Draw our hero
   HERO.update();
+  for (let enemy of enemy_arr) {
+    enemy.update();
+  }
   
 }
+
+
 
 // Start the animation
 update()
