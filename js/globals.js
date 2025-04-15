@@ -4,7 +4,7 @@
  * Keep all the globals in one place, in case they
  * need to be shared across modules/imports.
  * 
- * Author:
+ * Author: Sean Sadler
  * 
  */
 
@@ -22,6 +22,13 @@ export const MS_PER_FRAME = 1000 / FPS;
 // Movement
 export const GRAVITY = 1;
 export const FLOOR = CANVAS.height - 28;  // Careful - if the height ever changes...
+
+
+
+//Helper Functions:
+
+
+//Enemy Interval Spawning:
 
 // Some convenient keyboard codes
 export const KEYS = {

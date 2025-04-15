@@ -21,7 +21,8 @@ ground.src = "../images/dino_large.png";
 ground.x_pos1 = 0;
 ground.x_pos2 = 1150;
 
-
+let enemy_frame_count = 1;
+let next_enemy_frame = 120;
 let frame_time = performance.now();
 
 //Helper Functions
@@ -86,6 +87,23 @@ function update() {
     ground.x_pos2 = 1150;
   }
 
+  if (enemy_frame_count == next_enemy_frame) {
+    enemy_frame_count = 0;
+    for (let enemy of enemy_arr) {
+      if (!enemy.is_active) {
+        enemy.is_active = true;
+        enemy.x_pos = 1150;
+        break;
+      }
+    }
+
+    next_enemy_frame = randInt(40, 90);
+  }
+  
+  enemy_frame_count++;
+
+
+
 
   
   // Draw our hero
@@ -99,4 +117,5 @@ function update() {
 
 
 // Start the animation
-update()
+
+update();
