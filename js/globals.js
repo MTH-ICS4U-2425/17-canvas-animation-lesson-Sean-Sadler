@@ -25,9 +25,6 @@ export const FLOOR = CANVAS.height - 28;  // Careful - if the height ever change
 
 
 
-//Helper Functions:
-
-
 //Enemy Interval Spawning:
 
 // Some convenient keyboard codes

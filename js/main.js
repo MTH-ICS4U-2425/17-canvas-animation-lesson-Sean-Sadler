@@ -9,7 +9,7 @@
 
 'use strict';
 
-import Cactus from "./enemies.js";
+import Enemy from "./enemies.js";
 import Player from "./player.js";
 import { CANVAS, CTX, MS_PER_FRAME, KEYS, enemy_arr } from "./globals.js";
 
@@ -26,7 +26,7 @@ let next_enemy_frame = 120;
 let frame_time = performance.now();
 
 //Helper Functions
-export function randInt(min, max) {
+export default function randInt(min, max) {
   const minCeiled = Math.ceil(min);
   const maxFloored = Math.floor(max);
   return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled); // The maximum is inclusive and the minimum is inclusive
@@ -93,16 +93,15 @@ function update() {
       if (!enemy.is_active) {
         enemy.is_active = true;
         enemy.x_pos = 1150;
+        enemy.new_formation();
         break;
       }
     }
 
-    next_enemy_frame = randInt(40, 90);
+    next_enemy_frame = randInt(40, 100);
   }
   
   enemy_frame_count++;
-
-
 
 
   
