@@ -12,11 +12,12 @@
 import Enemy from "./enemies.js";
 import Player from "./player.js";
 import Sun from "./background.js"
-import { CANVAS, CTX, MS_PER_FRAME, KEYS, enemy_arr } from "./globals.js";
+import { CANVAS, CTX, MS_PER_FRAME, KEYS, enemy_arr, FLOOR } from "./globals.js";
+import { Star, Cloud, cloud_arr, star_arr } from "./parallax.js";
 
 // Global
-export const HERO = new Player(120, 150, 87, 95);
-const SUN = new Sun();
+export const HERO = new Player(120, 150, 88, 97);
+export const SUN = new Sun();
 
 const ground = new Image();
 ground.src = "../images/dino_large.png";
@@ -31,7 +32,7 @@ let next_enemy_frame = 120;
 let frame_time = performance.now();
 
 //Helper Functions
-export default function randInt(min, max) {
+export function randInt(min, max) {
   const minCeiled = Math.ceil(min);
   const maxFloored = Math.floor(max);
   return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled); // The maximum is inclusive and the minimum is inclusive
@@ -39,7 +40,7 @@ export default function randInt(min, max) {
 
 // Event Listeners
 document.addEventListener("keydown", keypress);
-
+document.addEventListener("keyup", keyrelease);
 
 
 // Disable the context menu on the entire document
@@ -58,10 +59,20 @@ function keypress(event) {
       HERO.alive = true;
       HERO.start_screen = false;
     } else if (!HERO.alive && !HERO.start_screen) {
-      console.log(true);
       game_reset();
     }
-  } 
+  } else if (event.keyCode == KEYS.S && HERO.alive && HERO.bottom == FLOOR) {
+    HERO.ducking = true;
+  }
+}
+
+function keyrelease(event) {
+  if (event.keyCode == KEYS.S && HERO.alive) {
+    HERO.ducking = false;
+    HERO.width = 88;
+    HERO.height = 97;
+    HERO.bottom = FLOOR;
+  }
 }
 
 
@@ -125,9 +136,14 @@ function update() {
     
     enemy_frame_count++;
 
-
+    //Update locations of all items
+    for (let star of star_arr) {
+      star.update();
+    }
     SUN.update();
-    // Draw our hero
+    for (let cloud of cloud_arr) {
+      cloud.update();
+    }
     HERO.update();
     for (let enemy of enemy_arr) {
       enemy.update();
@@ -149,5 +165,9 @@ function game_reset() {
   ground.x_pos2 = 1150;
 }
 
+
+export default { HERO, SUN, randInt }
+
 // Start the animation
 update();
+

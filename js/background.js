@@ -1,11 +1,16 @@
 'use strict';
 
 import { CANVAS, CTX, MS_PER_FRAME, KEYS, enemy_arr } from "./globals.js";
-import HERO from "./main.js";
+
 
 const BACKDROP = new Image();
 BACKDROP.src = "../images/dino_large.png";
 CTX.drawImage(BACKDROP, 76, 0, 87, 97, 120, 150, 87, 97);
+
+
+
+
+
 export default class Sun {
 
     constructor() {
@@ -95,10 +100,7 @@ export default class Sun {
     }
 }
 
-export class Cloud {
 
-}
 
-export class Star {
 
-}
+

@@ -28,6 +28,7 @@ export default class Player {
     };
     this.alive = false;
     this.start_screen = true;
+    this.ducking = false;
   }
 
   get right() {
@@ -98,6 +99,12 @@ export default class Player {
       frame_count++;
     }
 
+    if (this.ducking) {
+      this.width = 117;
+      this.height = 59;
+      this.bottom = FLOOR;
+    } 
+
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
       
@@ -109,8 +116,12 @@ export default class Player {
    * Draw the player on the canvas
    */
   draw() {
-    if (this.bottom >= FLOOR && frame_count > 8) {
+    if (this.bottom >= FLOOR && frame_count > 8 && this.ducking) {
+      CTX.drawImage(dino, 2206, 36, 117, 59, this.position.x, this.position.y, 117, 59)
+    } else if (this.bottom >= FLOOR && frame_count > 8) {
       CTX.drawImage(dino, 1854, 0, 88, 97, this.position.x, this.position.y, 88, 97)
+    } else if (this.bottom >= FLOOR && frame_count <= 8 && this.ducking) {
+      CTX.drawImage(dino, 2324, 36, 117, 59, this.position.x, this.position.y, 117, 59)
     } else if (this.bottom >= FLOOR && frame_count <= 8) {
       CTX.drawImage(dino, 1942, 0, 88, 97, this.position.x, this.position.y, 88, 97)
     } else {
