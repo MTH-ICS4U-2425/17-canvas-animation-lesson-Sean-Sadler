@@ -41,7 +41,7 @@ export const KEYS = {
 };
 
 //Enemies array:
-export let enemy_arr = new Array();
+export let enemy_arr = new Array(3);
 
 
 /**

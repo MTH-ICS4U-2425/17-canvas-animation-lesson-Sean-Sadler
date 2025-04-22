@@ -8,7 +8,7 @@
  * Author: 
  */
 
-import { CTX, CANVAS, GRAVITY, FLOOR } from "./globals.js"
+import { CTX, CANVAS, GRAVITY, FLOOR, enemy_arr } from "./globals.js"
 let frame_count = 0;
 const dino = new Image();
 dino.src = "../images/dino_large.png";
@@ -26,6 +26,8 @@ export default class Player {
       x: 0,
       y: 0
     };
+    this.alive = false;
+    this.start_screen = true;
   }
 
   get right() {
@@ -49,6 +51,40 @@ export default class Player {
    * Main function to update location, velocity, and image
    */
   update() {
+
+    for (let enemy of enemy_arr) {
+      if (enemy.formation == 7 || enemy.formation == 8|| enemy.formation == 9) {
+        if (this.right >= enemy.x_pos && this.right <= enemy.x_pos + enemy.sw-10) {
+          if (this.top <= enemy.y_pos + enemy.sh && this.top >= enemy.y_pos) {
+            this.alive = false;
+          } else if (this.bottom >= enemy.y_pos && this.bottom <= enemy.y_pos + enemy.sh) {
+            this.alive = false;
+          }
+        } else if (this.left >= enemy.x_pos && this.left <= enemy.x_pos + enemy.sw-10) {
+          if (this.top <= enemy.y_pos + enemy.sh && this.top >= enemy.y_pos) {
+            this.alive = false;
+          } else if (this.bottom >= enemy.y_pos && this.bottom <= enemy.y_pos + enemy.sh) {
+            this.alive = false;
+          }
+        }
+      } else {
+        if (this.right >= enemy.x_pos && this.right <= enemy.x_pos + enemy.sw) {
+          if (this.top <= enemy.y_pos + enemy.sh && this.top >= enemy.y_pos) {
+            this.alive = false;
+          } else if (this.bottom >= enemy.y_pos && this.bottom <= enemy.y_pos + enemy.sh) {
+            this.alive = false;
+          }
+        } else if (this.left >= enemy.x_pos && this.left <= enemy.x_pos + enemy.sw) {
+          if (this.top <= enemy.y_pos + enemy.sh && this.top >= enemy.y_pos) {
+            this.alive = false;
+          } else if (this.bottom >= enemy.y_pos && this.bottom <= enemy.y_pos + enemy.sh) {
+            this.alive = false;
+          }
+        }
+      }
+       
+    }
+
     if (this.bottom + this.velocity.y >= FLOOR) {
       this.velocity.y = 0;
       this.bottom = FLOOR;
@@ -64,6 +100,8 @@ export default class Player {
 
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
+      
+    
     this.draw();
   }
 
@@ -83,7 +121,11 @@ export default class Player {
   jump() {
     if (this.bottom >= FLOOR) {
       this.bottom = FLOOR;
-      this.velocity.y = -19;
+      this.velocity.y = -21;
     }
+  }
+
+  start() {
+    CTX.drawImage(dino, 76, 0, 88, 97, this.position.x, this.position.y, 88, 97)
   }
 }

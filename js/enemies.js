@@ -31,7 +31,6 @@ export default class Enemy {
     }
 
     new_formation() {
-        this.formation = randInt(1, 9)
         if (this.formation == 1) {
             this.sx = 751
             this.sy = 0
@@ -69,11 +68,17 @@ export default class Enemy {
             this.sh = 101
             this.y_pos = 230;
         } else if (this.formation == 7) {
-            this.y_pos = 230;
+            this.y_pos = 220;
+            this.sw = 91;
+            this.sh = 69;
         } else if (this.formation == 8) {
             this.y_pos = 185;
+            this.sw = 91;
+            this.sh = 69;
         } else if (this.formation == 9) {
             this.y_pos = 130;
+            this.sw = 91;
+            this.sh = 69;
         }
     }
 
@@ -105,10 +110,10 @@ export default class Enemy {
 
         if (this.formation == 7 || this.formation == 8 || this.formation == 9) {
             if (animation_frame > 20) {
-                CTX.drawImage(ENEMY, 352, 2, 91, 69, this.x_pos, this.y_pos, 91, 67);
+                CTX.drawImage(ENEMY, 352, 2, this.sw, this.sh, this.x_pos, this.y_pos, this.sw, this.sh);
 
             } else {
-                CTX.drawImage(ENEMY, 260, 14, 91, 69, this.x_pos, this.y_pos, 91, 67);
+                CTX.drawImage(ENEMY, 260, 14, this.sw, this.sh, this.x_pos, this.y_pos, this.sw, this.sh);
             }
 
         } else {
@@ -118,7 +123,7 @@ export default class Enemy {
     }
 }
 
-enemy_arr.push(new Enemy(1, 1150))
-enemy_arr.push(new Enemy(1, -100))
-enemy_arr.push(new Enemy(1, -100))
+enemy_arr[0] = new Enemy(1, 1150);
+enemy_arr[1] = new Enemy(1, -100);
+enemy_arr[2] = new Enemy(1, -100);
 
