@@ -28,6 +28,12 @@ let enemy_frame_count = 1;
 let next_enemy_frame = 120;
 
 
+const splash_screen = new Image();
+splash_screen.src = "../images/splash_screen_text.png";
+
+const death_screen = new Image();
+death_screen.src = "../images/death_text.png";
+
 
 let frame_time = performance.now();
 
@@ -67,7 +73,7 @@ function keypress(event) {
 }
 
 function keyrelease(event) {
-  if (event.keyCode == KEYS.S && HERO.alive) {
+  if ((event.keyCode == KEYS.S || event.keyCode == KEYS.DOWN_ARROW) && HERO.alive && (HERO.bottom == FLOOR)) {
     HERO.ducking = false;
     HERO.width = 88;
     HERO.height = 97;
@@ -86,6 +92,7 @@ function update() {
     requestAnimationFrame(update);
     CTX.clearRect(0, 0, CANVAS.width, CANVAS.height);
     CTX.drawImage(ground, 76, 0, 88, 97, HERO.position.x, HERO.position.y, 88, 97)
+    CTX.drawImage(splash_screen, 350, 150);
   } else if (HERO.alive) {
     // Prepare for the next frame
     requestAnimationFrame(update)
@@ -150,6 +157,8 @@ function update() {
     }
   } else {
     requestAnimationFrame(update);
+    CTX.drawImage(death_screen, 290, 65);
+    CTX.drawImage(ground, 1294, 29, 380, 20, 350, 40, 380, 20);
   }
 }
 
@@ -158,7 +167,7 @@ function game_reset() {
   HERO.alive = true;
   HERO.position.x = 120;
   HERO.position.y = 150;
-  enemy_arr[0] = new Enemy(1, 1150);
+  enemy_arr[0] = new Enemy(1, 1100);
   enemy_arr[1] = new Enemy(1, -100);
   enemy_arr[2] = new Enemy(1, -100);
   ground.x_pos1 = 0;

@@ -37,11 +37,23 @@ export default class Sun {
             } else {
                 CANVAS.style.filter = "invert(0%)";
             }
+        } else if (this.x_pos <= -74) {
+            if (this.sun_type == "sun") {
+                CANVAS.style.filter = "invert(95%)";
+            } else {
+                CANVAS.style.filter = "invert(5%)";
+            }
         } else if (this.x_pos <= -69) {
             if (this.sun_type == "sun") {
                 CANVAS.style.filter = "invert(90%)";
             } else {
                 CANVAS.style.filter = "invert(10%)";
+            }
+        } else if (this.x_pos <= -64) {
+            if (this.sun_type == "sun") {
+                CANVAS.style.filter = "invert(85%)";
+            } else {
+                CANVAS.style.filter = "invert(15%)";
             }
         } else if (this.x_pos <= -59) {
             if (this.sun_type == "sun") {
@@ -49,11 +61,23 @@ export default class Sun {
             } else {
                 CANVAS.style.filter = "invert(20%)";
             }
+        } else if (this.x_pos <= -54) {
+            if (this.sun_type == "sun") {
+                CANVAS.style.filter = "invert(75%)";
+            } else {
+                CANVAS.style.filter = "invert(25%)";
+            }
         } else if (this.x_pos <= -49) {
             if (this.sun_type == "sun") {
                 CANVAS.style.filter = "invert(70%)";
             } else {
                 CANVAS.style.filter = "invert(30%)";
+            }
+        } else if (this.x_pos <= -44) {
+            if (this.sun_type == "sun") {
+                CANVAS.style.filter = "invert(65%)";
+            } else {
+                CANVAS.style.filter = "invert(35%)";
             }
         } else if (this.x_pos <= -39) {
             if (this.sun_type == "sun") {
@@ -61,7 +85,19 @@ export default class Sun {
             } else {
                 CANVAS.style.filter = "invert(40%)";
             }
+        } else if (this.x_pos <= -34) {
+            if (this.sun_type == "sun") {
+                CANVAS.style.filter = "invert(55%)";
+            } else {
+                CANVAS.style.filter = "invert(45%)";
+            }
         } else if (this.x_pos <= -29) {
+            if (this.sun_type == "sun") {
+                CANVAS.style.filter = "invert(45%)";
+            } else {
+                CANVAS.style.filter = "invert(55%)";
+            }
+        } else if (this.x_pos <= -24) {
             if (this.sun_type == "sun") {
                 CANVAS.style.filter = "invert(40%)";
             } else {
@@ -69,11 +105,23 @@ export default class Sun {
             }
         } else if (this.x_pos <= -19) {
             if (this.sun_type == "sun") {
+                CANVAS.style.filter = "invert(35%)";
+            } else {
+                CANVAS.style.filter = "invert(65%)";
+            }
+        } else if (this.x_pos <= -14) {
+            if (this.sun_type == "sun") {
                 CANVAS.style.filter = "invert(30%)";
             } else {
                 CANVAS.style.filter = "invert(70%)";
             }
         } else if (this.x_pos <= -9) {
+            if (this.sun_type == "sun") {
+                CANVAS.style.filter = "invert(25%)";
+            } else {
+                CANVAS.style.filter = "invert(75%)";
+            }
+        } else if (this.x_pos <= -4) {
             if (this.sun_type == "sun") {
                 CANVAS.style.filter = "invert(20%)";
             } else {
@@ -81,9 +129,27 @@ export default class Sun {
             }
         } else if (this.x_pos <= 1) {
             if (this.sun_type == "sun") {
+                CANVAS.style.filter = "invert(15%)";
+            } else {
+                CANVAS.style.filter = "invert(85%)";
+            }
+        }  else if (this.x_pos <= 6) {
+            if (this.sun_type == "sun") {
                 CANVAS.style.filter = "invert(10%)";
             } else {
                 CANVAS.style.filter = "invert(90%)";
+            }
+        } else if (this.x_pos <= 11) {
+            if (this.sun_type == "sun") {
+                CANVAS.style.filter = "invert(5%)";
+            } else {
+                CANVAS.style.filter = "invert(95%)";
+            }
+        }else if (this.x_pos <= 16) {
+            if (this.sun_type == "sun") {
+                CANVAS.style.filter = "invert(0%)";
+            } else {
+                CANVAS.style.filter = "invert(100%)";
             }
         }
 

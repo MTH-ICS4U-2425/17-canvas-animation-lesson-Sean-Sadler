@@ -24,7 +24,6 @@ export const GRAVITY = 1;
 export const FLOOR = CANVAS.height - 28;  // Careful - if the height ever changes...
 
 
-
 //Enemy Interval Spawning:
 
 // Some convenient keyboard codes
