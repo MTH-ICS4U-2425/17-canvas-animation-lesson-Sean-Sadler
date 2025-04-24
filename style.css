@@ -16,7 +16,10 @@ body {
 
 }
 
-
+@font-face {
+  font-family: Press-Start-2P;
+  src: url('./PressStart2P-Regular.ttf');
+}
 
 .centered {
   display: flex;
@@ -24,6 +27,11 @@ body {
   justify-content: center; /* Horizontally center */
   width: 100vw;
   height: 100vh;
+  flex-direction: column;
+}
+
+button {
+  margin: 30px;
 }
 
 canvas {

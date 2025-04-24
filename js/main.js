@@ -12,7 +12,7 @@
 import Enemy from "./enemies.js";
 import Player from "./player.js";
 import Sun from "./background.js"
-import { CANVAS, CTX, MS_PER_FRAME, KEYS, enemy_arr, FLOOR } from "./globals.js";
+import { CANVAS, CTX, MS_PER_FRAME, KEYS, enemy_arr, FLOOR, $ } from "./globals.js";
 import { Star, Cloud, cloud_arr, star_arr } from "./parallax.js";
 
 // Global
@@ -27,6 +27,11 @@ ground.x_pos2 = 1150;
 let enemy_frame_count = 1;
 let next_enemy_frame = 120;
 
+let frame_count = 0;
+let score = 0;
+if (localStorage.getItem("hi_score") == null) {
+  localStorage.setItem("hi_score", 0);
+}
 
 const splash_screen = new Image();
 splash_screen.src = "../images/splash_screen_text.png";
@@ -47,6 +52,8 @@ export function randInt(min, max) {
 // Event Listeners
 document.addEventListener("keydown", keypress);
 document.addEventListener("keyup", keyrelease);
+
+$("full_reset").addEventListener("click", full_reset);
 
 
 // Disable the context menu on the entire document
@@ -79,6 +86,25 @@ function keyrelease(event) {
     HERO.height = 97;
     HERO.bottom = FLOOR;
   }
+}
+
+function full_reset() {
+  localStorage.setItem("hi_score", 0);
+  HERO.alive = false;
+  HERO.position.x = 120;
+  HERO.position.y = 150;
+  HERO.ducking = false;
+  HERO.width = 88;
+  HERO.height = 97;
+  enemy_arr[0] = new Enemy(1, 1100);
+  enemy_arr[1] = new Enemy(1, -100);
+  enemy_arr[2] = new Enemy(1, -100);
+  ground.x_pos1 = 0;
+  ground.x_pos2 = 1150;
+  enemy_frame_count = 0;
+  frame_count = 0;
+  score = 0;
+  HERO.start_screen = true;
 }
 
 
@@ -143,6 +169,12 @@ function update() {
     
     enemy_frame_count++;
 
+    frame_count++;
+
+    if (frame_count%6 == 0) {
+      score++;
+    }
+
     //Update locations of all items
     for (let star of star_arr) {
       star.update();
@@ -155,6 +187,13 @@ function update() {
     for (let enemy of enemy_arr) {
       enemy.update();
     }
+
+    CTX.font = "20px Press-Start-2P";
+    CTX.fillStyle= "#555555";
+    CTX.fillText(score, 980, 80);
+    CTX.fillText("HI: " + localStorage.getItem("hi_score"), 900, 40)
+
+
   } else {
     requestAnimationFrame(update);
     CTX.drawImage(death_screen, 290, 65);
@@ -164,14 +203,24 @@ function update() {
 
 
 function game_reset() {
+  if (score > localStorage.getItem("hi_score")) {
+    localStorage.setItem("hi_score", score);
+  }
   HERO.alive = true;
   HERO.position.x = 120;
   HERO.position.y = 150;
+  HERO.ducking = false;
+  HERO.width = 88;
+  HERO.height = 97;
+  HERO.bottom = FLOOR;
   enemy_arr[0] = new Enemy(1, 1100);
   enemy_arr[1] = new Enemy(1, -100);
   enemy_arr[2] = new Enemy(1, -100);
   ground.x_pos1 = 0;
   ground.x_pos2 = 1150;
+  enemy_frame_count = 0;
+  frame_count = 0;
+  score = 0;
 }
 
 

@@ -53,12 +53,10 @@ export class Star {
 
 star_arr.push(new Star(1100));
 star_arr.push(new Star(1300));
-star_arr.push(new Star(1700));
-star_arr.push(new Star(2000));
+star_arr.push(new Star(1800));
 cloud_arr.push(new Cloud(1150));
 cloud_arr.push(new Cloud(1500));
-cloud_arr.push(new Cloud(1600));
-cloud_arr.push(new Cloud(2200));
+cloud_arr.push(new Cloud(1900));
 
 
 export default { Cloud, Star, cloud_arr, star_arr }
