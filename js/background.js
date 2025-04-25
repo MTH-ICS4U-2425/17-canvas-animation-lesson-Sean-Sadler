@@ -20,6 +20,8 @@ export default class Sun {
     
 
     update() {
+
+        //day-night setting
         if (this.x_pos <= -80) {
             this.x_pos = 1100;
             if (this.sun_type == "sun") {
@@ -31,6 +33,7 @@ export default class Sun {
             this.x_pos -= 1;
         }
 
+        //day to night conversion animation
         if (this.x_pos <= -79) {
             if (this.sun_type == "sun") {
                 CANVAS.style.filter = "invert(100%)";

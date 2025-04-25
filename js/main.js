@@ -12,7 +12,7 @@
 import Enemy from "./enemies.js";
 import Player from "./player.js";
 import Sun from "./background.js"
-import { CANVAS, CTX, MS_PER_FRAME, KEYS, enemy_arr, FLOOR, $ } from "./globals.js";
+import { CANVAS, CTX, MS_PER_FRAME, KEYS, enemy_arr, FLOOR, $, GRAVITY } from "./globals.js";
 import { Star, Cloud, cloud_arr, star_arr } from "./parallax.js";
 
 // Global
@@ -74,7 +74,10 @@ function keypress(event) {
     } else if (!HERO.alive && !HERO.start_screen) {
       game_reset();
     }
-  } else if (event.keyCode == KEYS.S && HERO.alive && HERO.bottom == FLOOR) {
+  } else if ((event.keyCode == KEYS.S || event.keyCode == KEYS.DOWN_ARROW) && HERO.alive && HERO.bottom == FLOOR) {
+    HERO.ducking = true;
+  } else if ((event.keyCode == KEYS.S || event.keyCode == KEYS.DOWN_ARROW) && HERO.alive && HERO.bottom < FLOOR) {
+    HERO.fast_fall = 1;
     HERO.ducking = true;
   }
 }
@@ -85,6 +88,10 @@ function keyrelease(event) {
     HERO.width = 88;
     HERO.height = 97;
     HERO.bottom = FLOOR;
+  } else if ((event.keyCode == KEYS.S || event.keyCode == KEYS.DOWN_ARROW) && HERO.alive) {
+    HERO.ducking = false;
+    HERO.width = 88;
+    HERO.height = 97;
   }
 }
 
@@ -110,15 +117,17 @@ function full_reset() {
 
 
 /**
- * The main game loop
+ * The game loop
  */
 function update() {
-  
+  //start screen display
   if (!HERO.alive && HERO.start_screen == true ) {
     requestAnimationFrame(update);
     CTX.clearRect(0, 0, CANVAS.width, CANVAS.height);
     CTX.drawImage(ground, 76, 0, 88, 97, HERO.position.x, HERO.position.y, 88, 97)
     CTX.drawImage(splash_screen, 350, 150);
+
+    //main game loop
   } else if (HERO.alive) {
     // Prepare for the next frame
     requestAnimationFrame(update)
@@ -152,6 +161,7 @@ function update() {
       ground.x_pos2 = 1150;
     }
 
+    //spawning of enemies and resetting the frame timer
     if (enemy_frame_count == next_enemy_frame) {
       enemy_frame_count = 0;
       for (let enemy of enemy_arr) {
@@ -195,9 +205,11 @@ function update() {
 
 
   } else {
+    //death display
     requestAnimationFrame(update);
     CTX.drawImage(death_screen, 290, 65);
     CTX.drawImage(ground, 1294, 29, 380, 20, 350, 40, 380, 20);
+    CTX.drawImage(ground, 2030, 0, 88, 97, HERO.position.x, HERO.position.y, 88, 97)
   }
 }
 

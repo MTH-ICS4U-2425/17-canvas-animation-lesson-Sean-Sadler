@@ -14,6 +14,7 @@ export class Cloud {
         this.y_pos = randInt(50, 120)
     }
 
+    //cloud movement
     update() {
         this.x_pos -= 2;
         if (this.x_pos <= -100) {
@@ -34,6 +35,7 @@ export class Star {
         this.y_pos = randInt(50, 120)
     }
 
+    //star movement
     update() {
         this.x_pos -= 0.5;
         if (this.x_pos <= -50) {
@@ -43,6 +45,7 @@ export class Star {
         this.draw();
     }
 
+    //only draw at night
     draw() {
         if (SUN.sun_type == "moon") {
             CTX.drawImage(BACKDROP, 1274, 2, 17, 17, this.x_pos, this.y_pos, 17, 17);
@@ -50,7 +53,7 @@ export class Star {
     }
 }
 
-
+//updating parallax image arrays
 star_arr.push(new Star(1100));
 star_arr.push(new Star(1300));
 star_arr.push(new Star(1800));

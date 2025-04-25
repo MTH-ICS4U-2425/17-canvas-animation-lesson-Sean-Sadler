@@ -31,6 +31,7 @@ export default class Enemy {
     }
 
     new_formation() {
+        //different formations are different types of enemies (all cactus formations and pterodactyl heights included)
         if (this.formation == 1) {
             this.sx = 751
             this.sy = 0
@@ -88,6 +89,7 @@ export default class Enemy {
             this.is_active = false;
         }
 
+        //updating position, cacti follow the ground, pterodactyl are slightly slower like the real game
         if (this.is_active && (this.formation == 7 || this.formation == 8 || this.formation == 9)) {
             this.x_pos -= 9;
             this.draw();
@@ -123,6 +125,7 @@ export default class Enemy {
     }
 }
 
+//filling the enemy array
 enemy_arr[0] = new Enemy(1, 1150);
 enemy_arr[1] = new Enemy(1, -100);
 enemy_arr[2] = new Enemy(1, -100);

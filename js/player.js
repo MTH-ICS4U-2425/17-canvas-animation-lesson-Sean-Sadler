@@ -29,6 +29,7 @@ export default class Player {
     this.alive = false;
     this.start_screen = true;
     this.ducking = false;
+    this.fast_fall = 0;
   }
 
   get right() {
@@ -53,6 +54,7 @@ export default class Player {
    */
   update() {
 
+    //hitbox detection
     for (let enemy of enemy_arr) {
       if (enemy.formation == 7 || enemy.formation == 8|| enemy.formation == 9) {
         if (this.right >= enemy.x_pos && this.right <= enemy.x_pos + enemy.sw-10) {
@@ -83,23 +85,28 @@ export default class Player {
           }
         }
       }
-       
     }
+    
+       
 
+    //gravity 
     if (this.bottom + this.velocity.y >= FLOOR) {
       this.velocity.y = 0;
       this.bottom = FLOOR;
+      this.fast_fall = 0;
     } else {
-      this.velocity.y += GRAVITY;
+      this.velocity.y += GRAVITY + this.fast_fall;
     }
 
+    //measuring frame count for feet animation
     if (frame_count == 16) {
       frame_count = 0;
     } else {
       frame_count++;
     }
 
-    if (this.ducking) {
+    //ducking resizing
+    if (this.ducking && this.bottom >= FLOOR) {
       this.width = 117;
       this.height = 59;
       this.bottom = FLOOR;
